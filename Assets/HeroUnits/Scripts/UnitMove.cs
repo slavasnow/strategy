@@ -9,36 +9,52 @@ using UnityEngine.UIElements;
 /// </summary>
 public class UnitMove: MonoBehaviour
 {
-    public Vector2 mousePosition; //позиция мыши/
-
-    public bool @select; //переменная активации юнита
-
+    //внешние переменные
+    private bool @select; //переменная активации юнита
+    
+    //внутренние переменные
+    private Vector2 _mousePosition; //позиция мыши/
     private Camera _camera; //переменная камеры
     private NavMeshAgent _agent; //переменная агента
+    private Animator _animator; //анимации
+
 // Start is called before the first frame update 
     void Start()
     {
         //@select = GetComponent<UnitManager>().@select;
-        _camera = Camera.main;
-        _agent = GetComponent<NavMeshAgent>();
+        _camera = Camera.main; //инициализация камеры
+        _agent = GetComponent<NavMeshAgent>();//инициализация объекта
+        _animator = GetComponent<Animator>();
         
-        _agent.updateRotation = false;
+        _agent.updateRotation = false; 
         _agent.updateUpAxis = false;
 
-        mousePosition = _agent.pathEndPosition;// чтобы персонаж не смещался на 0.0
+        _mousePosition = _agent.nextPosition;// чтобы персонаж не смещался на 0.0
     }
 
 // Update is called once per frame
     void Update()
     {
-        @select = GetComponent<UnitManager>().@select;
+        @select = GetComponent<Attributes>().@select; //синхронизируем переменную через атрибуты
         if (@select)
         {
             if (Input.GetMouseButton(1))
             {
-                mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+                _mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+
             }
-            _agent.SetDestination(mousePosition);
+
+            _agent.SetDestination(_mousePosition);
+            GetComponent<UnitManager>().Flip(_mousePosition);
+        }
+
+        if (!_agent.hasPath)
+        {
+            _animator.Play("IDLE");
+        }
+        else
+        {
+            _animator.Play("MOVE");
         }
     }
 }
