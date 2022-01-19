@@ -73,15 +73,15 @@ public class Select : MonoBehaviour
         //показ здоровья для для выбранного объекта
         if (unit != null)
         {
-            textHealth.GetComponent<Text>().text = $"Здоровье {unit.GetComponent<Attributes>().health}"; //здоровье юнита когда он выбран
-            textLevel.GetComponent<Text>().text = $"Уровень {unit.GetComponent<Attributes>().level}"; //уровень объекта
-            textDamage.GetComponent<Text>().text = $"Урон {unit.GetComponent<Attributes>().damage}"; //уровень объекта
+            textHealth.GetComponent<Text>().text = $"Health {unit.GetComponent<Attributes>().health}"; //здоровье юнита когда он выбран
+            textLevel.GetComponent<Text>().text = $"Level {unit.GetComponent<Attributes>().level}"; //уровень объекта
+            textDamage.GetComponent<Text>().text = $"Damage {unit.GetComponent<Attributes>().damage}"; //уровень объекта
         }
         else
         {
-            textHealth.GetComponent<Text>().text = "Здоровье"; //если не выбраны юниты
-            textLevel.GetComponent<Text>().text = "Уровень"; //уровень объекта
-            textDamage.GetComponent<Text>().text =  "Урон"; //уровень объекта
+            textHealth.GetComponent<Text>().text = "Health"; //если не выбраны юниты
+            textLevel.GetComponent<Text>().text = "Level"; //уровень объекта
+            textDamage.GetComponent<Text>().text =  "Damage"; //уровень объекта
         }
 
     }
